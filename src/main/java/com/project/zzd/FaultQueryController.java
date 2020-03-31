@@ -41,7 +41,7 @@ public class FaultQueryController {
                     carBrand, carType, carModel, faultNo
             );
 
-            return new RequestResult(1, faultQuery, "success!");
+            return new RequestResult(faultQuery!=null?1:0, faultQuery, faultQuery!=null?"success!":"not found!");
         }catch (Exception e){
             e.printStackTrace();
             log.error(e.getMessage());
