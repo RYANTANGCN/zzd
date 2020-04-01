@@ -1,10 +1,13 @@
 package com.project.zzd;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 
 @Slf4j
@@ -21,7 +24,8 @@ public class FaultQueryController {
             String carType,
             String faultNo
     ){
-
+        log.debug("---------request form---------");
+        log.debug("carBrand:{},carModel:{},carType:{},faultNo:{}",carBrand,carModel,carType,faultNo);
         try {
             if (carBrand == null || carBrand.equals("")) {
                 return new RequestResult(-1, null, "carBrand required");
@@ -42,9 +46,15 @@ public class FaultQueryController {
             FaultQuery faultQuery = faultQueryDao.findByCarBrandAndCarTypeAndCarModelAndFaultNoLike(
                     carBrand, carType, carModel, faultNo
             );
-
+            log.info("response body:{}",new ObjectMapper().writeValueAsString(faultQuery));
             return new RequestResult(faultQuery!=null?1:0, faultQuery, faultQuery!=null?"success!":"not found!");
-        }catch (Exception e){
+        }catch (IncorrectResultSizeDataAccessException incorrectResultSizeDataAccessException){
+            if (incorrectResultSizeDataAccessException.getCause() instanceof NonUniqueResultException) {
+                return new RequestResult(-3, null, "请提供更详细的错误代码进行查询");
+            }
+            return new RequestResult(-2,null,"system error!");
+        }
+        catch (Exception e){
             e.printStackTrace();
             log.error(e.getMessage());
             return new RequestResult(-2,null,"system error!");
