@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 public class FaultQueryController {
@@ -37,7 +39,7 @@ public class FaultQueryController {
                 return new RequestResult(-1, null, "faultNo required");
             }
 
-            FaultQuery faultQuery = faultQueryDao.findByCarBrandAndCarTypeAndCarModelAndFaultNo(
+            FaultQuery faultQuery = faultQueryDao.findByCarBrandAndCarTypeAndCarModelAndFaultNoLike(
                     carBrand, carType, carModel, faultNo
             );
 
@@ -47,6 +49,42 @@ public class FaultQueryController {
             log.error(e.getMessage());
             return new RequestResult(-2,null,"system error!");
         }
+    }
+
+    /**
+     * 车品牌
+     * @return
+     */
+    @RequestMapping("/car/brand")
+    public RequestResult<List<String>> carBrands(){
+
+        List<String> carBrandList = faultQueryDao.getDistinctCarBrand();
+
+        return new RequestResult<>(1,carBrandList,"success!");
+    }
+
+    /**
+     * 车类型
+     * @return
+     */
+    @RequestMapping("/car/type")
+    public RequestResult<List<String>> carTypes(){
+
+        List<String> carTypeList = faultQueryDao.getDistinctCarType();
+
+        return new RequestResult<>(1,carTypeList,"success!");
+    }
+
+    /**
+     * 车型
+     * @return
+     */
+    @RequestMapping("/car/model")
+    public RequestResult<List<String>> carModels(){
+
+        List<String> carModelList = faultQueryDao.getDistinctCarModel();
+
+        return new RequestResult<>(1,carModelList,"success!");
     }
 
 }
