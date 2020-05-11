@@ -1,17 +1,19 @@
-package com.project.zzd;
+package com.project.zzd.entiy;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "pm_fault_query")
-public class FaultQuery {
+public class FaultQuery implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     /**
@@ -63,5 +65,15 @@ public class FaultQuery {
      * 备注
      */
     private String remark;
+
+    public FaultQuery(String carBrand, String carModel, String carType, String faultNo, String faultName, String faultDescribe, String faultEliminate) {
+        this.carBrand = carBrand;
+        this.carModel = carModel;
+        this.carType = carType;
+        this.faultNo = faultNo;
+        this.faultName = faultName;
+        this.faultDescribe = faultDescribe;
+        this.faultEliminate = faultEliminate;
+    }
 
 }

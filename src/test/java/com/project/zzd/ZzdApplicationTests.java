@@ -8,6 +8,7 @@ class ZzdApplicationTests {
 
     @Test
     void contextLoads() {
+        java.util.Calendar.getInstance();
     }
 
 }
