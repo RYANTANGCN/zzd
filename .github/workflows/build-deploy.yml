@@ -26,5 +26,5 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          SOURCE: "target/zzd.war"
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+          source: "target/zzd.war"
+          target: ${{ secrets.REMOTE_TARGET }}
