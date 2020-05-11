@@ -21,10 +21,10 @@ jobs:
     - name: Build with Maven
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
     - name: Deploy to Aliyun
-      uses: easingthemes/ssh-deploy@v2.1.1
+      uses: appleboy/scp-action@master
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
           SOURCE: "target/zzd.war"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ${{ secrets.REMOTE_TARGET }}
