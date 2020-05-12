@@ -23,7 +23,7 @@ jobs:
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
 
     - name: Download Artifact
-    - uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v2
       with:
         name: zzd.war
         path: target
