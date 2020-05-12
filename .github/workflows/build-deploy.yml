@@ -21,16 +21,6 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
-
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: zzd.war
-        path: target
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
     - name: Deploy to Aliyun
       uses: easingthemes/ssh-deploy@v2.1.1
       env:
