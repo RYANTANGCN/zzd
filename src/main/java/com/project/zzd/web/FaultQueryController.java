@@ -125,9 +125,9 @@ public class FaultQueryController {
      * @return
      */
     @RequestMapping("/car/model")
-    public RequestResult<List<String>> carModels(String carBrand,String carModel){
+    public RequestResult<List<String>> carModels(String carBrand,String carType){
 
-        List<String> carModelList = faultQueryDao.getCarModel(carBrand,carModel);
+        List<String> carModelList = faultQueryDao.getCarModel(carBrand,carType);
 
         return new RequestResult<>(1,carModelList,"success!");
     }
