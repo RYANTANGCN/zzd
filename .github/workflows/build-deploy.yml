@@ -22,6 +22,7 @@ jobs:
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
   deploy:
     needs: build
+    runs-on: ubuntu-latest
     steps:
     - name: Deploy to Aliyun
       uses: easingthemes/ssh-deploy@v2.1.1
