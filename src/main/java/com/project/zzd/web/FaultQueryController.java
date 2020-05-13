@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
-@CrossOrigin(origins = "/**")
 @RestController
 public class FaultQueryController {
 
