@@ -86,6 +86,7 @@ public class FaultQueryController {
             return new RequestResult(faultQuery!=null?1:0, faultQuery, faultQuery!=null?"success!":"not found!");
         }catch (IncorrectResultSizeDataAccessException incorrectResultSizeDataAccessException){
             if (incorrectResultSizeDataAccessException.getCause() instanceof NonUniqueResultException) {
+                incorrectResultSizeDataAccessException.printStackTrace();
                 return new RequestResult(-3, null, "请提供更详细的错误代码进行查询");
             }
             return new RequestResult(-2,null,"system error!");

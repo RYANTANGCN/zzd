@@ -66,7 +66,7 @@ public class FaultQuery implements Serializable {
      */
     private String remark;
 
-    public FaultQuery(String carBrand, String carModel, String carType, String faultNo, String faultName, String faultDescribe, String faultEliminate) {
+    public FaultQuery(String carBrand,  String carType, String carModel,String faultNo, String faultName, String faultDescribe, String faultEliminate) {
         this.carBrand = carBrand;
         this.carModel = carModel;
         this.carType = carType;

@@ -10,7 +10,7 @@ public interface FaultQueryDao extends JpaRepository<FaultQuery,Integer> {
     @Query(
             "select q from FaultQuery q where " +
                     "q.carBrand=:carBrand and q.carType=:carType and " +
-                    "q.carModel=:carModel and q.faultNo like %:faultNo%"
+                    "q.carModel=:carModel and q.faultNo=:faultNo"
     )
     FaultQuery findByCarBrandAndCarTypeAndCarModelAndFaultNoLike(
             String carBrand,

@@ -29,9 +29,9 @@ public class ExcelImport {
 
         try {
             String[] filePaths = {
-                    "/Users/ryantang/Documents/zzd/0517cd6636619d6c.xlsx",
-                    "/Users/ryantang/Documents/zzd/1_BT故障代码数(1).xlsx",
-                    "/Users/ryantang/Documents/zzd/3b9080ab07b7a796.xlsx",
+//                    "/Users/ryantang/Documents/zzd/0517cd6636619d6c.xlsx",
+//                    "/Users/ryantang/Documents/zzd/1_BT故障代码数(1).xlsx",
+//                    "/Users/ryantang/Documents/zzd/3b9080ab07b7a796.xlsx",
                     "/Users/ryantang/Documents/zzd/LINDE故障代码数据(1).xlsx"
             };
 
@@ -57,7 +57,7 @@ public class ExcelImport {
                         }
 //                        row.getCell(0).getCellType();
                         if (    //row.getCell(0) == null
-                                getCellStringValue(row.getCell(0))==null//车型号没有没必要导
+                                getCellStringValue(row.getCell(0))==null//车品牌没有没必要导
 //                                || row.getCell(4) == null
 //                                || getCellStringValue(row.getCell(4))==null//错误代码没有没必要导
 //                                || row.getCell(5) == null
