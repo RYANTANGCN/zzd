@@ -136,6 +136,8 @@ public class FaultQueryController {
      */
     @RequestMapping("/car/type")
     public RequestResult carTypes(String carBrand){
+        log.debug("--------------/car/type request-----------------");
+        log.debug("carBrand:{}",carBrand);
 
         List<String> carTypeList = faultQueryDao.getCarType(carBrand);
 
@@ -154,6 +156,9 @@ public class FaultQueryController {
      */
     @RequestMapping("/car/model")
     public RequestResult<List<String>> carModels(String carBrand,String carType){
+
+        log.debug("--------------/car/model request-----------------");
+        log.debug("carBrand:{} , carType:{}",carBrand,carType);
 
         List<String> carModelList = faultQueryDao.getCarModel(carBrand,carType);
 
