@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,26 +22,31 @@ public class FaultQuery implements Serializable {
     /**
      * 车品牌
      */
+    @NotBlank
     private String carBrand;
 
     /**
      * 车类型
      */
+    @NotBlank
     private String carType;
 
     /**
      * 车型
      */
+    @NotBlank
     private String carModel;
 
     /**
      * 故障编码
      */
+    @NotBlank
     private String faultNo;
 
     /**
      * 故障名称
      */
+    @NotBlank
     private String faultName;
 
     /**

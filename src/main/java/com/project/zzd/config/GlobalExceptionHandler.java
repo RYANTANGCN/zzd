@@ -17,6 +17,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ConstraintViolationException.class)
     @ResponseBody
     public RequestResult<String> validateException(ConstraintViolationException constraintViolationException) {
+        logger.error("Validated Exception:",constraintViolationException);
         return RequestResult.error(constraintViolationException.getLocalizedMessage());
     }
 
