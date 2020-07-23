@@ -17,6 +17,8 @@ public class RequestResult<T> implements Serializable {
 
     private String message;
 
+    private Long count;
+
     public RequestResult(Integer code,T data,String message){
         this.code = code;
         this.data = data;

@@ -36,8 +36,11 @@ public class DataManageController {
     DataManageService dataManageService;
 
     @PostMapping("page")
-    public RequestResult<Page<FaultQuery>> faultQueryPage(@Min(1) @NotNull Integer pageIndex, @NotNull @Min(1) Integer pageNum) {
-        return RequestResult.success(dataManageService.findByPage(PageRequest.of(pageIndex, pageNum, Sort.Direction.DESC, "createDateTime")));
+    public RequestResult faultQueryPage(@Min(1) @NotNull Integer pageIndex, @NotNull @Min(1) Integer pageNum) {
+        Page<FaultQuery> faultQueryPage = dataManageService.findByPage(PageRequest.of(pageIndex, pageNum, Sort.Direction.DESC, "createDateTime"));
+        RequestResult requestResult = RequestResult.success(faultQueryPage.getContent());
+        requestResult.setCount(faultQueryPage.getTotalElements());
+        return requestResult;
     }
 
     @PostMapping("createOrUpdate")
