@@ -9,17 +9,38 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.NonUniqueResultException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @RestController
 public class FaultQueryController {
+
+    static Map<String, String> CAR_TYPE = new HashMap<>();
+
+    static {
+        CAR_TYPE.put("A","高位拣选电瓶叉车");
+        CAR_TYPE.put("E","平衡重电瓶叉车");
+        CAR_TYPE.put("H","平衡重内燃叉车");
+        CAR_TYPE.put("K","人上行系统车");
+        CAR_TYPE.put("L","电动堆垛车");
+        CAR_TYPE.put("N","低位拣选电批叉车");
+        CAR_TYPE.put("P","牵引电瓶车");
+        CAR_TYPE.put("R","前移式电瓶叉车");
+        CAR_TYPE.put("T","电动托盘叉车");
+        CAR_TYPE.put("V","？");
+        CAR_TYPE.put("ERROR","故障查询");
+        CAR_TYPE.put("INFO","信息查询");
+    }
 
     @Autowired
     FaultQueryDao faultQueryDao;
@@ -85,6 +106,7 @@ public class FaultQueryController {
             return new RequestResult(faultQuery!=null?1:0, faultQuery, faultQuery!=null?"success!":"not found!");
         }catch (IncorrectResultSizeDataAccessException incorrectResultSizeDataAccessException){
             if (incorrectResultSizeDataAccessException.getCause() instanceof NonUniqueResultException) {
+                incorrectResultSizeDataAccessException.printStackTrace();
                 return new RequestResult(-3, null, "请提供更详细的错误代码进行查询");
             }
             return new RequestResult(-2,null,"system error!");
@@ -113,11 +135,19 @@ public class FaultQueryController {
      * @return
      */
     @RequestMapping("/car/type")
-    public RequestResult<List<String>> carTypes(String carBrand){
+    public RequestResult carTypes(String carBrand){
+        log.debug("--------------/car/type request-----------------");
+        log.debug("carBrand:{}",carBrand);
 
         List<String> carTypeList = faultQueryDao.getCarType(carBrand);
 
-        return new RequestResult<>(1,carTypeList,"success!");
+        LinkedHashMap<String, String> result = new LinkedHashMap<>();
+
+        carTypeList.forEach(car->{
+            result.put(String.format("%s--%s", car, CAR_TYPE.get(car) == null ? "" : CAR_TYPE.get(car)), car);
+        });
+
+        return new RequestResult<>(1,result,"success!");
     }
 
     /**
@@ -125,9 +155,12 @@ public class FaultQueryController {
      * @return
      */
     @RequestMapping("/car/model")
-    public RequestResult<List<String>> carModels(String carBrand,String carModel){
+    public RequestResult<List<String>> carModels(String carBrand,String carType){
 
-        List<String> carModelList = faultQueryDao.getCarModel(carBrand,carModel);
+        log.debug("--------------/car/model request-----------------");
+        log.debug("carBrand:{} , carType:{}",carBrand,carType);
+
+        List<String> carModelList = faultQueryDao.getCarModel(carBrand,carType);
 
         return new RequestResult<>(1,carModelList,"success!");
     }
