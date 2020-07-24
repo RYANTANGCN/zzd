@@ -1,8 +1,0 @@
-language: java
-os: linux
-dist: bionic
-jdk:
-  - oraclejdk8
-script:
-  - ./mvnw clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - ./mvnw package -DskipTests=true

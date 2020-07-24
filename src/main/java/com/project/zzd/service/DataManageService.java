@@ -1,6 +1,5 @@
 package com.project.zzd.service;
 
-import com.github.dozermapper.core.DozerBeanMapper;
 import com.project.zzd.dao.FaultQueryDao;
 import com.project.zzd.entiy.FaultQuery;
 import org.springframework.beans.factory.annotation.Autowired;
