@@ -2,6 +2,8 @@ package com.project.zzd.entiy;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 
 //@Data
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @NoArgsConstructor
 @Table(name = "pm_fault_query")
 public class FaultQuery implements Serializable {
