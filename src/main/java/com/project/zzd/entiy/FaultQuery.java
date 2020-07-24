@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 //@Data
 @Entity
 @DynamicInsert
-@DynamicUpdate
 @NoArgsConstructor
 @Table(name = "pm_fault_query")
 public class FaultQuery implements Serializable {

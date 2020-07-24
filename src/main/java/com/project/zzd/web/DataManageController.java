@@ -37,7 +37,7 @@ public class DataManageController {
 
     @PostMapping("page")
     public RequestResult faultQueryPage(@Min(1) @NotNull Integer pageIndex, @NotNull @Min(1) Integer pageNum) {
-        Page<FaultQuery> faultQueryPage = dataManageService.findByPage(PageRequest.of(pageIndex, pageNum, Sort.Direction.DESC, "createDateTime"));
+        Page<FaultQuery> faultQueryPage = dataManageService.findByPage(PageRequest.of(pageIndex-1, pageNum, Sort.Direction.DESC, "createDateTime"));
         RequestResult requestResult = RequestResult.success(faultQueryPage.getContent());
         requestResult.setCount(faultQueryPage.getTotalElements());
         return requestResult;
